@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Home>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+
+<div class="container">
+    <p class="h3">Selected news</p>
+    <div class="row">
+        @{
+                //Get all news items, sort by create date and reverse order
+                //var news = Model.Content.Site().Descendants<News>().Take(3).OrderBy(s => s.CreateDate).Reverse();
+
+                var editorNews = Model.Content.EditorSelectedNews;
+
+                //old editor news function
+                //var news = Model.Content.Site().Descendants<News>().Where(x => x.NewsHighlight == true).OrderBy(s => s.CreateDate).Reverse().Take(3);
+                var news = Model.Content.Site().Descendants<News>()
+                    .OrderBy(s => s.CreateDate)
+                    .Reverse()
+                    .Take(3);
+
+                foreach (var item in editorNews)
+                {
+                    var img = Umbraco.Media(item.GetPropertyValue("NewsImage"));
+                <div class="col-md-4">
+                    @*<p>@item.CreateDate.ToShortTimeString()</p>*@
+                    @*<p>@item.CreateDate</p>*@
+                    <p class="h6">@item.GetPropertyValue("Headline")</p>
+                    <p>@(item.GetPropertyValue<DateTime>("EditorDate").ToShortDateString())</p>
+                    @*<img class="img-fluid" src="@item.GetPropertyValue("NewsImage.Url?width=100")" alt="News image" />*@
+                    <img src="@img.umbracoFile" alt="Alternate Text" />
+                    <p>@item.GetPropertyValue("Excerpt")</p>
+                    <a class="btn btn-primary btn-sm" href="@item.Url" role="button">Read more</a>
+                </div>
+            }
+
+
+            //Present the news
+            @*foreach (var item in news)
+            {
+                <div class="col-md-4">
+                    @*<p>@item.CreateDate.ToShortTimeString()</p>*@
+                    @*<p>@item.CreateDate</p>*@@*                    
+                    <p class="h6">@item.Headline</p>
+                    <p>@item.EditorDate.ToShortDateString()</p>
+                    <img class="img-fluid" src="@item.NewsImage.Url?width=100" alt="News image" />                    
+                    <p>@item.Excerpt</p>
+                    <a class="btn btn-primary btn-sm" href="@item.Url" role="button">Read more</a>
+                </div>
+            }*@
+        }
+    </div>
+</div>
+
+

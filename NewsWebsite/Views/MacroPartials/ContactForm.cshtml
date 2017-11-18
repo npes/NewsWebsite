@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using System.Net.Mail
+
+@if (IsPost)
+{
+    //do something
+
+    string body = "This is what is going to be written in the mail body";
+    body += Request["userEmail"] + ", " + Request["userName"] + ", " + Request["userMessage"];
+
+    SmtpClient client = new SmtpClient();
+    client.Send("npesdk@gmail.com", "npesdk@gmail.com", "Hello from News", body);
+
+    <ul>
+        <li>@Request["userEmail"]</li>
+        <li>@Request["userName"]</li>
+        <li>@Request["userMessage"]</li>
+    </ul>
+}
+else
+{
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="userEmail">Email address</label>
+            <input type="email" required class="form-control" id="userEmail" name="userEmail" placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="userName">Name</label>
+            <input type="text" required class="form-control" id="userName" name="userName" placeholder="your name">
+        </div>
+
+        <div class="form-group">
+            <label for="userMessage">Message</label>
+            <textarea class="form-control" id="userMessage" rows="3" name="userMessage" placeholder="Your message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}

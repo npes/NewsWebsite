@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Contentpage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "SiteMaster.cshtml";
+}
+
+    <!--Hero start-->
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-3">@Model.Content.Headline</h1>
+        <div class="lead">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        @Model.Content.Bodytext
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--hero end-->
+    

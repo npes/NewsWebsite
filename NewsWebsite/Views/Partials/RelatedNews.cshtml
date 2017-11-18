@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+<div class="container">
+    @*<div class="row">*@
+        <div class="list-group">
+            <h3>Related News</h3>
+            @{
+
+                var currentNews = Model.Content.Id;
+                //get all news from news area
+                var news = Model.Content.Site().Descendants<News>().Where(x => x.Id != currentNews).Take(3);
+                foreach (var item in news)
+                {
+                    <a class="list-group-item list-group-item-action" href="@item.Url"><p>@item.Headline</p></a>
+                }
+            }
+        </div>
+    @*</div>*@
+</div>

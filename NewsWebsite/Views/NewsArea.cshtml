@@ -1,0 +1,47 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.NewsArea>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "SiteMaster.cshtml";
+}
+
+<!--Hero start-->
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-3">@Model.Content.Headline</h1>
+        <div class="lead">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        @Model.Content.BodyText
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                @{
+                    //Get all news items, sort by create date and reverse order
+                    //var news = Model.Content.Site().Descendants<News>().Take(3).OrderBy(s => s.CreateDate).Reverse();
+                    //var news = Model.Content.Site().Descendants<News>().OrderBy(s => s.CreateDate);
+                    var news = Model.Content.Site().Descendants<News>().OrderBy(s => s.EditorDate).Reverse();
+                    //Present the news
+                    foreach (var item in news)
+                    {
+                        <div class="col-md-4">
+                            @*<p>@item.CreateDate.ToShortTimeString()</p>*@
+                            @*<p>@item.CreateDate</p>*@
+                            <a href="@item.Url">@item.Headline</a>
+                            @*<p class="h6">@item.Headline</p>*@
+                            @*<p>@item.EditorDate.ToShortDateString()</p>*@
+                            <p>@item.EditorDate.ToString("d.MM.yyyy")</p>
+                            <img class="img-fluid" src="@item.NewsImage.Url?width=100" alt="News image" />
+                            <p>@item.Excerpt</p>
+                            @*<a class="btn btn-primary btn-sm" href="@item.Url" role="button">Read more</a>*@
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+<!--hero end-->
